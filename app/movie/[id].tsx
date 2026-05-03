@@ -21,7 +21,7 @@ export default function MovieDetailScreen() {
     transform: [{ scale: scale.value }],
   }));
 
-  // Gesture pour le bouton favori (bonus react-native-gesture-handler)
+  // Gesture pour le bouton favori 
   const tap = Gesture.Tap()
     .runOnJS(true)
     .onBegin(() => { scale.value = withSpring(0.9); })

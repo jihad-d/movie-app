@@ -25,15 +25,18 @@ export default function SearchBar({ value, onChangeText }: Props) {
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingVertical: 4,
     backgroundColor: '#000',
+    marginTop: 60,
+    paddingTop: 15,
+    paddingBottom: 15,
   },
   input: {
     backgroundColor: '#1c1c1e',
     color: '#fff',
     borderRadius: 10,
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingVertical: 6,
     fontSize: 15,
   },
 });
