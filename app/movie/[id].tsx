@@ -1,12 +1,12 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { View, Text, Image, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
+import { GestureDetector, Gesture } from 'react-native-gesture-handler';
 import { useFavorites, Movie } from '../../context/FavoritesContext';
 import { TMDB_IMAGE_BASE, TMDB_API_KEY, TMDB_BASE_URL } from '../../constants/api';
 
@@ -21,11 +21,14 @@ export default function MovieDetailScreen() {
     transform: [{ scale: scale.value }],
   }));
 
-  // Gesture pour le bouton favori 
   const tap = Gesture.Tap()
     .runOnJS(true)
-    .onBegin(() => { scale.value = withSpring(0.9); })
-    .onFinalize(() => { scale.value = withSpring(1); })
+    .onBegin(() => {
+      scale.value = withSpring(0.9);
+    })
+    .onFinalize(() => {
+      scale.value = withSpring(1);
+    })
     .onEnd(() => {
       if (!movie) return;
       if (isFavorite(movie.id)) {
@@ -60,7 +63,9 @@ export default function MovieDetailScreen() {
         />
       )}
       <Text style={styles.title}>{movie.title}</Text>
-      <Text style={styles.rating}>⭐ {movie.vote_average.toFixed(1)} · {movie.release_date?.slice(0, 4)}</Text>
+      <Text style={styles.rating}>
+        ⭐ {movie.vote_average.toFixed(1)} · {movie.release_date?.slice(0, 4)}
+      </Text>
       <Text style={styles.overview}>{movie.overview}</Text>
 
       <GestureDetector gesture={tap}>
@@ -77,7 +82,12 @@ export default function MovieDetailScreen() {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#000' },
   content: { padding: 16, alignItems: 'center', gap: 12 },
-  center: { flex: 1, backgroundColor: '#000', alignItems: 'center', justifyContent: 'center' },
+  center: {
+    flex: 1,
+    backgroundColor: '#000',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   poster: { width: '100%', height: 400, borderRadius: 12 },
   title: { color: '#fff', fontSize: 24, fontWeight: '700', textAlign: 'center' },
   rating: { color: '#f5c518', fontSize: 16 },

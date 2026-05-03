@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Text, StyleSheet, Pressable, Image, View } from 'react-native';
+import { Text, StyleSheet, Image, View, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 import Animated, { FadeInDown, useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { Movie } from '../context/FavoritesContext';
@@ -12,7 +12,7 @@ type Props = {
 
 export default function MovieCard({ movie, index }: Props) {
   const router = useRouter();
-  const scale = useSharedValue(1); // SharedValue pour l'animation de press
+  const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
@@ -27,12 +27,15 @@ export default function MovieCard({ movie, index }: Props) {
   }, [scale]);
 
   const handlePress = useCallback(() => {
-    router.push(`/movie/${movie.id}`);
-  }, [router, movie.id]);
+    router.push({
+      pathname: '/movie/[id]',
+      params: { id: movie.id },
+    });
+  }, [movie.id, router]);
 
   return (
     <Animated.View
-      entering={FadeInDown.delay(index * 60).springify()} // Animation de Layout
+      entering={FadeInDown.delay(index * 60).springify()}
       style={animatedStyle}
     >
       <Pressable
