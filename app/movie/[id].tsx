@@ -11,16 +11,19 @@ import { useFavorites, Movie } from '../../context/FavoritesContext';
 import { TMDB_IMAGE_BASE, TMDB_API_KEY, TMDB_BASE_URL } from '../../constants/api';
 
 export default function MovieDetailScreen() {
+  // Récupération de l'id passé en paramètre de navigation
   const { id } = useLocalSearchParams<{ id: string }>();
   const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   const [movie, setMovie] = React.useState<Movie | null>(null);
 
+  // SharedValue pour animer le bouton favori
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],
   }));
 
+  // Gesture tap sur le bouton favori avec animation spring
   const tap = Gesture.Tap()
     .runOnJS(true)
     .onBegin(() => {
@@ -38,6 +41,7 @@ export default function MovieDetailScreen() {
       }
     });
 
+  // Chargement du détail du film depuis l'API TMDB
   React.useEffect(() => {
     fetch(`${TMDB_BASE_URL}/movie/${id}?api_key=${TMDB_API_KEY}`)
       .then((r) => r.json())
